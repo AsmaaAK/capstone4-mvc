@@ -1,0 +1,15 @@
+{
+    "name": "a/volunteer-managment",
+    "autoload": {
+        "psr-4": {
+            "A\\VolunteerManagment\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "AsmaaAK",
+            "email": "asoomak97@gmail.com"
+        }
+    ],
+    "require": {}
+}
