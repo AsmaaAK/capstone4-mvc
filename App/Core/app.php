@@ -1,13 +1,30 @@
-<?php 
+<?php
+declare(strict_types=1);
 
-class App{
-    public static function make(){
-        
-try {
-$pdo = new PDO('mysql:host=localhost;dbname=volunteer_portal;charset=utf8'
-,'root','');
-} catch(PDOException $e){
-    echo ($e->getMessage());
-}
+namespace App\Core;
+
+use PDO;
+use PDOException;
+
+class App
+{
+    private static ?PDO $db = null;
+
+    public static function db(): PDO
+    {
+        if (self::$db === null) {
+            $host = 'localhost';
+            $dbname = 'volunteer_portal';
+            $user = 'root';
+            $pass = '';
+
+            try {
+                self::$db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
+                self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Database connection failed: " . $e->getMessage());
+            }
+        }
+        return self::$db;
     }
 }

@@ -2,7 +2,7 @@
     "name": "a/volunteer-managment",
     "autoload": {
         "psr-4": {
-            "A\\VolunteerManagment\\": "src/"
+             "App\\": "app/"
         }
     },
     "authors": [
