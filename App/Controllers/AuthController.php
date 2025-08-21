@@ -1,45 +1,66 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Core\Auth;
 use App\Models\User;
+use App\Core\Database;
+use App\Core\App;
 
 class AuthController extends Controller
 {
-    public function showLogin(): void
+    public function showLoginForm(): void
     {
-        if (Auth::check()) {
-            $this->redirect('/users');
-        }
-        $this->render('auth/login', ['title' => 'Login']);
+        // // session_start();
+        // $error = $_SESSION['error'] ?? null;
+        // unset($_SESSION['error']);
+        // $this->render('auth/login', ['title' => 'تسجيل الدخول', 'error' => $error]);
+        require __DIR__ . '/../Views/auth/login.php';
     }
 
     public function login(): void
     {
-        $email    = trim($_POST['email'] ?? '');
+        $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        if ($email === '' || $password === '') {
-            $this->render('auth/login', ['error' => 'الرجاء تعبئة كل الحقول.']);
-            return;
-        }
-
         $user = User::findByEmail($email);
-        if (!$user || !password_verify($password, $user->password)) {
-            $this->render('auth/login', ['error' => 'بيانات دخول غير صحيحة.']);
-            return;
-        }
 
-        Auth::login($user->id);
-        $this->redirect('/users');
+        if ($user && password_verify($password, $user->password)) {
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['user_name'] = $user->name;
+            $this->redirect('/volunteer-managment/public/users');
+        } else {
+            $_SESSION['error'] = "البريد الإلكتروني أو كلمة المرور غير صحيحة";
+            $this->redirect('/volunteer-managment/public/auth/login');
+        }
+    }
+
+    public function showRegisterForm(): void
+    {
+        require __DIR__ . '/../Views/auth/register.php';
+    }
+
+    public function register(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = password_hash($_POST['password'] ?? '', PASSWORD_DEFAULT);
+
+            $stmt = App::db()->prepare("INSERT INTO users (name,email,password) VALUES (:name,:email,:password)");
+            $stmt->execute([':name' => $name, ':email' => $email, ':password' => $password]);
+
+            $this->redirect('/volunteer-managment/public/auth/login');
+        } else {
+            $this->render('auth/register');
+        }
     }
 
     public function logout(): void
     {
-        Auth::logout();
-        $this->redirect('/login');
+        // session_start();
+        $_SESSION = [];
+        session_destroy();
+        $this->redirect('/volunteer-managment/public/auth/login');
     }
 }

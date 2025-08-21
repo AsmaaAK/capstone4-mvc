@@ -1,4 +1,4 @@
-<?php $title = $title ?? 'App'; ?>
+
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
@@ -20,10 +20,10 @@
 <body>
   <div class="container">
     <header>
-      <h1 style="margin:0">Capstone4 MVC</h1>
+      <!-- <h1 style="margin:0">Capstone4 MVC</h1> -->
       <nav style="display:flex; gap:10px; margin-top:10px">
-        <a href="./users" class="btn">المستخدمون</a>
-        <form action="./logout" method="post" style="margin-inline-start:auto">
+        <a href="/volunteer-managment/public/users" class="btn">المستخدمون</a>
+        <form action="/volunteer-managment/public/auth/logout" method="post"  style="margin-inline-start:auto">
           <button class="btn">خروج</button>
         </form>
       </nav>
@@ -33,7 +33,7 @@
       <?= $content ?? '' ?>
     </main>
 
-    <footer style="margin-top:20px; color:#666">© <?= date('Y') ?></footer>
+    <!-- <footer style="margin-top:20px; color:#666">©></footer> -->
   </div>
 </body>
 </html>

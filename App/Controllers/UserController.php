@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 namespace App\Controllers;
 
 use App\Core\Controller;
@@ -10,7 +8,16 @@ class UserController extends Controller
 {
     public function index(): void
     {
+        if (!isset($_SESSION['user_id'])) {
+            $this->redirect('/volunteer-managment/public/auth/login');
+            return;
+        }
+
         $users = User::all();
-        $this->render('users/index', ['title' => 'Users', 'users' => $users]);
+
+        $this->render('users/index', [
+            'title' => 'قائمة المستخدمين',
+            'users' => $users
+        ]);
     }
 }
