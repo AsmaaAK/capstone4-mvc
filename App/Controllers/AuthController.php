@@ -11,9 +11,6 @@ class AuthController extends Controller
 {
     public function showLoginForm(): void
     {
-        // // session_start();
-        // $error = $_SESSION['error'] ?? null;
-        // unset($_SESSION['error']);
         // $this->render('auth/login', ['title' => 'تسجيل الدخول', 'error' => $error]);
         require __DIR__ . '/../Views/auth/login.php';
     }
