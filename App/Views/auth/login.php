@@ -20,6 +20,14 @@
         <input type="password" name="password" required
             style="width:100%; direction: rtl; padding:10px; border:1px solid #ddd; border-radius:8px; margin-top:5px;">
     </label>
+     <div>
+        <label for="role" style="direction: rtl; font-weight:bold;">الدور</label>
+        <input type="radio" name="role" id="role_admin" name="admin">
+        <label for="role_admin">مدير</label>
+        <input type="radio" name="role" id="role_volunteer" name="volunteer">
+        <label for="role_volunteer">متطوع</label>
+
+     </div>
 
     <button type="submit"
         style="padding:12px; background:#007bff; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px;">

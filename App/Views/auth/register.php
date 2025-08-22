@@ -21,5 +21,10 @@
         كلمة المرور
         <input type="password" name="password" required style=" direction: rtl; width:100%; padding:8px; border:1px solid #ddd; border-radius:8px;">
     </label>
+    <label for="role" style="direction: rtl; font-weight:bold;">الدور</label>
+        <input type="radio" name="role" id="admin" name="admin" required>
+    <label for="admin">مدير</label>
+        <input type="radio" name="role" id="volunteer" name="volunteer" required>
+     <label for="volunteer">متطوع</label>
     <button type="submit" style="padding:10px; background:#007bff; color:white; border:none; border-radius:5px; cursor:pointer;">تسجيل </button>
 </form>

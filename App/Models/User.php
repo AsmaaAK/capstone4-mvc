@@ -38,4 +38,16 @@ class User
         $u->password = $row['password'];
         return $u;
     }
+     function create($name, $email, $password, $role){
+     
+     $stmt = App::db()->prepare("INSERT INTO users (name, email, password, role) 
+     VALUE (:name, :email, :password, :role)");
+     $stmt->execute([
+        ':name' => $name,
+        ':email' => $email,
+        ':password'=> password_hash($password,PASSWORD_DEFAULT),
+        ':role' => $role
+     ]);
+     return $this->pdo->lastInsertId();
+     }
 }
